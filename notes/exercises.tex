@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,graphicx,psfrag,amsmath,amsfonts,verbatim}
+\usepackage[small,bf]{caption}
+
+\input defs.tex
+
+\bibliographystyle{alpha}
+
+\title{CVXPY Exercises}
+\author{Steven Diamond}
+\date{TCMM 2014}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item\emph{Hello world.}
+Solve the following optimization problem using CVXPY:
+\[
+\begin{array}{ll} \mbox{minimize} & x^2 - 2\sqrt{y}\\
+\mbox{subject to} & 2 \geq e^x \\
+& x + y = 5,
+\end{array}
+\]
+where $x,y \in \reals$ are variables.
+
+Find the optimal values of $x$ and $y$.
+
+\item\emph{Non-negative least squares.}
+We wish to recover a sparse, non-negative vector $x \in \reals^n$ from measurements $y \in \reals^m$. Our measurement model tells us that
+$$
+y = Ax + v,
+$$
+where $A \in \reals^{n \times m}$ is a known matrix and $v \in \reals^m$ is unknown measurement error. The entries of $v$ are drawn IID from the distribution $\mathcal{N}(0, \sigma^2)$.
+
+We can recover a good estimate of $x$ by solving the optimization problem
+\[
+\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2\\
+\mbox{subject to} & x \geq 0.
+\end{array}
+\]
+This problem is called non-negative least squares.
+
+The file \verb+nnls.py+ defines $n$, $m$, $A$, $x$, and $y$. Use CVXPY to estimate $x$ from $y$. First try standard regression, \ie, solve
+\[
+\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2.
+\end{array}
+\]
+Use the plotting code in \verb+nnls.py+ to compare the estimated $x$ with the true $x$. Add the constraint $x \geq 0$ and see how it affects the estimate.
+
+How many measurements $n$ are needed for standard regression to find an accurate $x$? How about non-negative least squares?
+
+\item\emph{Isotonic regression.}
+isotonic least squares
+
+\item\emph{Power grid optimization.}
+
+\end{enumerate}
+
+\end{document}
