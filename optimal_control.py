@@ -29,7 +29,6 @@ B[3,1] = delt
 x = Variable(4, N+1)
 u = Variable(2, N)
 gamma = Parameter(sign="positive")
-F = sum_squares(u) + gamma*norm(u, 1)
 ### Your code here. ###
 
 
@@ -68,7 +67,10 @@ def plot_state(x, u, gamma_val):
     fig.suptitle(r"$\gamma = %d$" % gamma_val)
 
 for gamma_val in [0, 1, 10, 100]:
+    # Update the parameter gamma.
     gamma.value = gamma_val
-    prob.solve()
-    plot_state(x.value, u.value, gamma_val)
+    # Solve the problem with the new value of gamma.
+    ### Your code here ###
+
+    plot_state(x.value, u.value, gamma.value)
 plt.show()

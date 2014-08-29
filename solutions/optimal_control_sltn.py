@@ -71,7 +71,9 @@ def plot_state(x, u, gamma_val):
     fig.suptitle(r"$\gamma = %d$" % gamma_val)
 
 for gamma_val in [0, 1, 10, 100]:
+    # Update the parameter gamma.
     gamma.value = gamma_val
+    # Solve the problem with the new value of gamma.
     prob.solve()
-    plot_state(x.value, u.value, gamma_val)
+    plot_state(x.value, u.value, gamma.value)
 plt.show()
