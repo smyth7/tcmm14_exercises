@@ -31,11 +31,11 @@ We wish to recover a sparse, non-negative vector $x \in \reals^n$ from measureme
 $$
 y = Ax + v,
 $$
-where $A \in \reals^{n \times m}$ is a known matrix and $v \in \reals^m$ is unknown measurement error. The entries of $v$ are drawn IID from the distribution $\mathcal{N}(0, \sigma^2)$.
+where $A \in \reals^{m \times n}$ is a known matrix and $v \in \reals^m$ is unknown measurement error. The entries of $v$ are drawn IID from the distribution $\mathcal{N}(0, \sigma^2)$.
 
 We can recover a good estimate of $x$ by solving the optimization problem
 \[
-\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2\\
+\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2\\
 \mbox{subject to} & x \geq 0.
 \end{array}
 \]
@@ -43,12 +43,12 @@ This problem is called non-negative least squares.
 
 The file \verb+nnls.py+ defines $n$, $m$, $A$, $x$, and $y$. Use CVXPY to estimate $x$ from $y$. First try standard regression, \ie, solve
 \[
-\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2.
+\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2.
 \end{array}
 \]
 Use the plotting code in \verb+nnls.py+ to compare the estimated $x$ with the true $x$. Add the constraint $x \geq 0$ and see how it affects the estimate.
 
-How many measurements $n$ are needed for standard regression to find an accurate $x$? How about non-negative least squares?
+How many measurements $m$ are needed for standard regression to find an accurate $x$? How about non-negative least squares?
 
 \item \emph{Minimum fuel optimal control.}
 We consider a vehicle moving along a 2D plane. The vehicle's state at time $t$ is described by $x_t \in \reals^4$, where $(x_{t,0}, x_{t,1})$ is the position of the vehicle in two dimensions and $(x_{t,0}, x_{t,1})$ is the vehicle velocity. At each time $t$ a drive force $(u_{t,0}, u_{t,1})$ is applied to the vehicle.

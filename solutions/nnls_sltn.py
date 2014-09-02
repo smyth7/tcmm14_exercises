@@ -26,3 +26,6 @@ plt.plot(range(n), true_x,  label="true x")
 plt.plot(range(n), x.value,  label="estimated x")
 plt.legend(loc='upper right')
 plt.show()
+
+# m = 150 enough for regression.
+# m = 60 enough for non-negative least squares.

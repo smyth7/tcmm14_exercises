@@ -41,7 +41,7 @@ constraints = []
 for i in xrange(colors):
     X = Variable(rows, cols)
     variables += [X]
-    constraints.append(mul_elemwise(K[:, :, i], X - Xcorr[:, :, i]) == 0)
+    constraints += [mul_elemwise(K[:, :, i], X - Xcorr[:, :, i]) == 0]
 
 prob = Problem(Minimize(tv(*variables)), constraints)
 prob.solve(verbose=True, solver=SCS)
@@ -54,7 +54,7 @@ rec_arr = np.zeros((rows, cols, colors), dtype=np.uint8)
 for i in xrange(colors):
     rec_arr[:, :, i] = variables[i].value
 
-fig, ax = plt.subplots(1, 2,figsize=(10, 5))
+fig, ax = plt.subplots(1, 2, figsize=(10, 5))
 # Display the in-painted image.
 img_rec = Image.fromarray(rec_arr)
 ax[0].imshow(img_rec);

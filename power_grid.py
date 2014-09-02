@@ -15,6 +15,7 @@ class Node(object):
         return [net_flow == 0]
 
 class Generator(Node):
+    """A node that generates power up to a maximum output."""
     def __init__(self, U):
         self.U = U
         super(Generator, self).__init__(square)
@@ -26,6 +27,7 @@ class Generator(Node):
         pass # Replace this with your code.
 
 class Consumer(Node):
+    """A node that consumes a fixed power load."""
     def __init__(self, L):
         self.L = L
         super(Consumer, self).__init__(lambda x: 0)
@@ -47,6 +49,7 @@ class Edge(object):
         out_node.edge_flows.append(self.flow)
 
 class CapEdge(Edge):
+    """An edge with a maximum power flow capacity."""
     def __init__(self, c):
         self.c = c
         super(CapEdge, self).__init__(square)
