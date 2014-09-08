@@ -29,6 +29,7 @@ B[3,1] = delt
 x = Variable(4, N+1)
 u = Variable(2, N)
 gamma = Parameter(sign="positive")
+F = sum([sum_squares(u[:, t]) + gamma*norm(u[:, t], 1) for t in range(N)])
 ### Your code here. ###
 
 

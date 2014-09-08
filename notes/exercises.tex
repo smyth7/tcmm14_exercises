@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage{fullpage,graphicx,psfrag,amsmath,amsfonts,verbatim}
+\usepackage{fullpage,graphicx,psfrag,amsmath,amsfonts,verbatim,hyperref}
 \usepackage[small,bf]{caption}
 
 \input defs.tex
@@ -13,11 +13,13 @@
 \begin{document}
 \maketitle
 
+Files are posted at \url{https://github.com/SteveDiamond/tcmm14_exercises}.
+
 \begin{enumerate}
 \item\emph{Hello world.}
 Solve the following optimization problem using CVXPY:
 \[
-\begin{array}{ll} \mbox{minimize} & x^2 - 2\sqrt{y}\\
+\begin{array}{ll} \mbox{minimize} & |x| - 2\sqrt{y}\\
 \mbox{subject to} & 2 \geq e^x \\
 & x + y = 5,
 \end{array}

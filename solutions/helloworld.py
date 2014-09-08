@@ -2,7 +2,7 @@
 from cvxpy import *
 x = Variable()
 y = Variable()
-cost = square(x) - 2*sqrt(y)
+cost = abs(x) - 2*sqrt(y)
 obj = Minimize(cost)
 prob = Problem(Minimize(cost),
                [2 >= exp(x),

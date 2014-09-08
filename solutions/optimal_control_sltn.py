@@ -29,8 +29,8 @@ B[3,1] = delt
 x = Variable(4, N+1)
 u = Variable(2, N)
 gamma = Parameter(sign="positive")
+F = sum([sum_squares(u[:, t]) + gamma*norm(u[:, t], 1) for t in range(N)])
 ### Your code here. ###
-F = sum_squares(u) + gamma*norm(u, 1)
 constraints = [x[:, 0] == 0, x[:, N] == x_des]
 for t in range(N):
     constraints += [x[:, t+1] == A*x[:, t] + B*u[:, t]]
