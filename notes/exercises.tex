@@ -33,29 +33,53 @@ where $x,y \in \reals$ are variables.
 
 Find the optimal values of $x$ and $y$.
 
-\item\emph{Non-negative least squares.}
-We wish to recover a sparse, non-negative vector $x \in \reals^n$ from measurements $y \in \reals^m$. Our measurement model tells us that
+\item\emph{LASSO.}
+We wish to recover a sparse vector $x \in \reals^n$ from measurements $y \in \reals^m$. Our measurement model tells us that
 $$
 y = Ax + v,
 $$
 where $A \in \reals^{m \times n}$ is a known matrix and $v \in \reals^m$ is unknown measurement error. The entries of $v$ are drawn IID from the distribution $\mathcal{N}(0, \sigma^2)$.
 
-We can recover a good estimate of $x$ by solving the optimization problem
+We can first try to recover $x$ by solving the optimization problem
 \[
-\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2\\
-\mbox{subject to} & x \geq 0.
+\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2 + \gamma ||x||^2_2.\\
 \end{array}
 \]
-This problem is called non-negative least squares.
+This problem is called ridge regression.
 
-The file \verb+nnls.py+ defines $n$, $m$, $A$, $x$, and $y$. Use CVXPY to estimate $x$ from $y$. First try standard regression, \ie, solve
+The file \verb+lasso.py+ defines $n$, $m$, $A$, $x$, and $y$. Use CVXPY to estimate $x$ from $y$ using ridge regression. Try multiple values of $\gamma$. Use the plotting code in \verb+lasso.py+ to compare the estimated $x$ with the true $x$.
+
+A more successful approach is to solve the LASSO problem
 \[
-\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2.
+\begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2 + \gamma \|x\|_1.\\
 \end{array}
 \]
-Use the plotting code in \verb+nnls.py+ to compare the estimated $x$ with the true $x$. Add the constraint $x \geq 0$ and see how it affects the estimate.
 
-How many measurements $m$ are needed for standard regression to find an accurate $x$? How about non-negative least squares?
+How many measurements $m$ are needed to find an accurate $x$ with ridge regression? How about with the LASSO?
+
+% \item\emph{Non-negative least squares.}
+% We wish to recover a sparse, non-negative vector $x \in \reals^n$ from measurements $y \in \reals^m$. Our measurement model tells us that
+% $$
+% y = Ax + v,
+% $$
+% where $A \in \reals^{m \times n}$ is a known matrix and $v \in \reals^m$ is unknown measurement error. The entries of $v$ are drawn IID from the distribution $\mathcal{N}(0, \sigma^2)$.
+
+% We can recover a good estimate of $x$ by solving the optimization problem
+% \[
+% \begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2\\
+% \mbox{subject to} & x \geq 0.
+% \end{array}
+% \]
+% This problem is called non-negative least squares.
+
+% The file \verb+nnls.py+ defines $n$, $m$, $A$, $x$, and $y$. Use CVXPY to estimate $x$ from $y$. First try standard regression, \ie, solve
+% \[
+% \begin{array}{ll} \mbox{minimize} & ||Ax - y||^2_2.
+% \end{array}
+% \]
+% Use the plotting code in \verb+nnls.py+ to compare the estimated $x$ with the true $x$. Add the constraint $x \geq 0$ and see how it affects the estimate.
+
+% How many measurements $m$ are needed for standard regression to find an accurate $x$? How about non-negative least squares?
 
 \item \emph{Minimum fuel optimal control.}
 We consider a vehicle moving along a 2D plane. The vehicle's state at time $t$ is described by $x_t \in \reals^4$, where $(x_{t,0}, x_{t,1})$ is the position of the vehicle in two dimensions and $(x_{t,0}, x_{t,1})$ is the vehicle velocity. At each time $t$ a drive force $(u_{t,0}, u_{t,1})$ is applied to the vehicle.
