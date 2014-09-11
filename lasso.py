@@ -24,3 +24,43 @@ plt.plot(range(n), true_x,  label="true x")
 plt.plot(range(n), x.value,  label="estimated x")
 plt.legend(loc='upper right')
 plt.show()
+
+# Trade-off curve.
+from multiprocessing import Pool
+
+# Assign a value to gamma and find the optimal x.
+def get_x(gamma_value):
+    gamma.value = gamma_value
+    result = prob.solve()
+    return x.value
+
+# Parallel computation with N processes. (Define N yourself).
+pool = Pool(processes = N)
+x_values = pool.map(get_x, numpy.logspace(-4, 2))
+
+# Plot regularization path.
+results = np.hstack(x_values)
+for i in range(n):
+    plt.plot(gammas, results[i, :].T)
+plt.show()
+
+# # Uncomment to try plotting the regularization path.
+# from multiprocessing import Pool
+
+# # Assign a value to gamma and find the optimal x.
+# def get_x(gamma_value):
+#     gamma.value = gamma_value
+#     result = prob.solve(solver=SCS)
+#     return x.value
+
+# # Parallel computation with N processes. (Define N yourself).
+# N = 4
+# pool = Pool(processes = N)
+# gamma_vals = np.logspace(-4, 2)
+# x_values = pool.map(get_x, gamma_vals)
+
+# # Plot regularization path.
+# results = np.hstack(x_values)
+# for i in range(n):
+#     plt.plot(gamma_vals, results[i, :].T)
+# plt.show()
